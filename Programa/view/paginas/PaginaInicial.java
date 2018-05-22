@@ -12,9 +12,14 @@ import view.paginas.MultivariadaListener;
 import view.paginas.QuantitativosListener;
 import view.paginas.QualitativosListener;
 import view.util.*;
+import model.Tabela;
+import model.TabelaObserver;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.JScrollPane;
 
 //Decorador de pagina que carrega o visual da pagina inicial do programa
-public class PaginaInicial extends DecoradorPagina implements ActionListener
+public class PaginaInicial extends DecoradorPagina implements ActionListener, TabelaObserver
 {
     private int largura;
     private int altura;
@@ -227,7 +232,7 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener
         coluna_centro.add(botao_abrir);
         mensagem.setAlignmentX(Component.CENTER_ALIGNMENT);
         botao_abrir.setAlignmentX(Component.CENTER_ALIGNMENT);
-        coluna_centro.setPreferredSize(new Dimension(largura - 320, altura - 100));
+        coluna_centro.setPreferredSize(new Dimension(largura - 400, altura - 100));
         return coluna_centro; 
     }
 
@@ -284,5 +289,27 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener
             if(botao == botao_graficos)
                 setBotoesGraficos();
         }
+    }
+
+    public void atualizarTabela() {
+        ArrayList<String[]> table = Tabela.getTabela();
+
+        coluna_centro.removeAll(); // limpa a coluna central. 
+        
+        String[] nomeColunas = table.get(0);
+        String[][] dados = new String[table.size()][nomeColunas.length];
+        int i = 0;
+        for (String[] linhas : table) 
+        {
+            dados[i] = linhas;
+            i++;
+        }
+
+        JTable csvTable = new JTable(dados, nomeColunas);
+        JScrollPane csvPanel = new JScrollPane(csvTable);
+        csvPanel.setPreferredSize(new Dimension(800,300));
+        coluna_centro.add(csvPanel);
+        coluna_centro.revalidate();
+        coluna_centro.repaint();
     }
 }

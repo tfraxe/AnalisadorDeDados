@@ -5,6 +5,9 @@ import javax.swing.UIManager;
 import view.janelas.*;
 import view.paginas.*;
 import java.net.URL;
+import model.Tabela;
+import model.TabelaObserver;
+import model.TabelaObservable;
 
 //Essa classe controla o carregamento da janela e da pagina inicial
 public class Gerenciador
@@ -38,6 +41,8 @@ public class Gerenciador
             janela.setIcone(icone);
             janela.navegar(pagina);
             janela.iniciar();
+            Tabela teste = new Tabela();
+            teste.addObservers(pagina);
         }
         catch(Exception e)
         {

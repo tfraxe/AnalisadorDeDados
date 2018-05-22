@@ -4,19 +4,19 @@ import gerenciamento.Gerenciador;
 import controller.ItemController;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import model.LeitorArquivo;
+import model.Tabela;
 import java.io.File;
 import java.io.IOException;
 
 //Controlador da execucao do item abrir da barra de menu
 public class AbrirItemController implements ItemController
 {
-    private LeitorArquivo leitor;
+    //private Tabela leitor;
 
-    public AbrirItemController(LeitorArquivo leitor)
+    /*public AbrirItemController(Tabela leitor)
     {
         this.leitor = leitor;
-    }
+    } */
     
     public void executar(String texto)
     {
@@ -29,10 +29,10 @@ public class AbrirItemController implements ItemController
             if(retorno == JFileChooser.APPROVE_OPTION) 
             {
                 File arquivo = fileChooser.getSelectedFile();
-                leitor.setArquivo(arquivo);
+                Tabela.setArquivo(arquivo);
                 try
                 {
-                    leitor.ler();
+                    Tabela.ler();
                 }
                 catch(IOException nexc)
                 {

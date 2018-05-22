@@ -28,7 +28,7 @@ public class MenuBarListener implements MenuObservador
     public MenuBarListener()
     {
         controllers = new LinkedList<ItemController>();
-        abrir = new AbrirItemController(new LeitorArquivo());
+        abrir = new AbrirItemController();
         salvar = new SalvarItemController();
         fechar = new FecharItemController();
         suporte = new SuporteItemController();
@@ -48,3 +48,7 @@ public class MenuBarListener implements MenuObservador
             i.executar(item.getText());
     }
 } 
+
+
+
+
