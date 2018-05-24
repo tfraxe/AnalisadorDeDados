@@ -5,24 +5,12 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
-import view.janelas.JanelaAbstrata;
-import view.paginas.DecoradorPagina;
-import view.paginas.UnivariadaListener;
-import view.paginas.MultivariadaListener;
-import view.paginas.QuantitativosListener;
-import view.paginas.QualitativosListener;
+import view.paginas.*;
 import view.util.*;
-import model.Tabela;
-import model.TabelaObserver;
-import java.util.ArrayList;
-import java.util.Arrays;
-import javax.swing.JScrollPane;
 
 //Decorador de pagina que carrega o visual da pagina inicial do programa
-public class PaginaInicial extends DecoradorPagina implements ActionListener, TabelaObserver
+public class PaginaInicial extends DecoradorPagina implements ActionListener
 {
-    private int largura;
-    private int altura;
     private BotaoIcone botao_analises;
     private BotaoIcone botao_graficos;
     private Coluna coluna_icones;
@@ -72,8 +60,6 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener, Ta
         multivariada_listener = new MultivariadaListener();
         quantitativos_listener = new QuantitativosListener();
         qualitativos_listener = new QualitativosListener();
-        largura = (int)JanelaAbstrata.getResolucao().getWidth();
-        altura = (int)JanelaAbstrata.getResolucao().getHeight();
         construirColunas();
         construirBotoes();
         agruparBotoes();
@@ -192,20 +178,26 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener, Ta
     public void carregar()
     {
         JPanel panel = super.getPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
-        panel.add(criarColunaIcones());
-        panel.add(criarColunaOperacoes());
-        panel.add(criarColunaCentro());
+        panel.setLayout(new BorderLayout());
+        panel.add(criarLateralEsquerda(), BorderLayout.LINE_START);
+        panel.add(criarColunaCentro(), BorderLayout.CENTER);
         super.pagina.carregar();
     }
 
+    private JPanel criarLateralEsquerda()
+    {
+        JPanel esquerda = new JPanel(new BorderLayout());
+        esquerda.add(criarColunaIcones(), BorderLayout.LINE_START);
+        esquerda.add(criarColunaOperacoes(), BorderLayout.CENTER);
+        return esquerda;
+    }
+    
     //Cria a coluna com os botoes analises e graficos
     private JPanel criarColunaIcones()
     {
         coluna_icones.setLayout(new BoxLayout(coluna_icones, BoxLayout.Y_AXIS));
         coluna_icones.add(botao_analises);
         coluna_icones.add(botao_graficos);
-        coluna_icones.setPreferredSize(new Dimension(50, altura - 100));
         return coluna_icones;
     }
 
@@ -214,25 +206,13 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener, Ta
     {
         coluna_operacoes.setLayout(new BoxLayout(coluna_operacoes, BoxLayout.Y_AXIS));
         setBotoesAnalise();
-        coluna_operacoes.setPreferredSize(new Dimension(250, altura - 100));
         return coluna_operacoes;
     }
 
     //cria a parte central da pagina
     private JPanel criarColunaCentro()
     {
-        coluna_centro.setLayout(new BoxLayout(coluna_centro, BoxLayout.Y_AXIS));
-        JLabel mensagem = new JLabel("Bem-vindo! Escolha um arquivo .csv e calcule dados estatisticos.");
-        JButton botao_abrir = new JButton("Abrir arquivo...");
-        botao_abrir.setBorderPainted(false);
-        botao_abrir.setFocusPainted(false);
-        botao_abrir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        botao_abrir.addActionListener(this);
-        coluna_centro.add(mensagem);
-        coluna_centro.add(botao_abrir);
-        mensagem.setAlignmentX(Component.CENTER_ALIGNMENT);
-        botao_abrir.setAlignmentX(Component.CENTER_ALIGNMENT);
-        coluna_centro.setPreferredSize(new Dimension(largura - 400, altura - 100));
+        coluna_centro.setLayout(new GridLayout());
         return coluna_centro; 
     }
 
@@ -291,24 +271,17 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener, Ta
         }
     }
 
-    public void atualizarTabela() {
-        ArrayList<String[]> table = Tabela.getTabela();
+    public void inserirCentro(JComponent component)
+    {
+        limparCentro();
+        coluna_centro.add(component);
+        coluna_centro.revalidate();
+        coluna_centro.repaint();
+    }
 
-        coluna_centro.removeAll(); // limpa a coluna central. 
-        
-        String[] nomeColunas = table.get(0);
-        String[][] dados = new String[table.size()][nomeColunas.length];
-        int i = 0;
-        for (String[] linhas : table) 
-        {
-            dados[i] = linhas;
-            i++;
-        }
-
-        JTable csvTable = new JTable(dados, nomeColunas);
-        JScrollPane csvPanel = new JScrollPane(csvTable);
-        csvPanel.setPreferredSize(new Dimension(800,300));
-        coluna_centro.add(csvPanel);
+    public void limparCentro()
+    {
+        coluna_centro.removeAll();
         coluna_centro.revalidate();
         coluna_centro.repaint();
     }

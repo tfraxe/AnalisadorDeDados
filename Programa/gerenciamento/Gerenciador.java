@@ -2,18 +2,17 @@ package gerenciamento;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import controller.AbrirItemController;
 import view.janelas.*;
 import view.paginas.*;
 import java.net.URL;
 import model.Tabela;
-import model.TabelaObserver;
-import model.TabelaObservable;
 
 //Essa classe controla o carregamento da janela e da pagina inicial
 public class Gerenciador
 {
-    private static JanelaNavega janela;
-    private static PaginaInicial pagina;
+    private static JanelaAbstrata janela;
+    private static PaginaAbstrata pagina;
     private URL icone;
 
     public static JanelaAbstrata getJanela()
@@ -33,16 +32,16 @@ public class Gerenciador
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             icone = ClassLoader.getSystemResource("view/icones/pie-chart.png");
             //Decoracao de janela
-            janela = new JanelaNavega(new JanelaMenu(new Janela("Analisador Descritivo de Dados")));
+            JanelaNavega janela_navega = new JanelaNavega(new JanelaMenu(new Janela("Analisador Descritivo de Dados")));
             //Decoracao de pagina
-            pagina = new PaginaInicial(new Pagina());
-            pagina.carregar();
-            janela.montar();
-            janela.setIcone(icone);
-            janela.navegar(pagina);
-            janela.iniciar();
-            Tabela teste = new Tabela();
-            teste.addObservers(pagina);
+            PaginaInicial pagina_inicial = new PaginaInicial(new Pagina());
+            janela = janela_navega;
+            pagina = pagina_inicial;
+            pagina_inicial.carregar();
+            janela_navega.montar();
+            janela_navega.setIcone(icone);
+            janela_navega.navegar(pagina_inicial);
+            janela_navega.iniciar();
         }
         catch(Exception e)
         {

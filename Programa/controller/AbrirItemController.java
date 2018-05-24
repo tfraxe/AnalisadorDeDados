@@ -5,19 +5,30 @@ import controller.ItemController;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Tabela;
+import observer.TabelaObservador;
+import view.paginas.TabelaListener;
+
 import java.io.File;
 import java.io.IOException;
 
 //Controlador da execucao do item abrir da barra de menu
 public class AbrirItemController implements ItemController
-{
-    //private Tabela leitor;
-
-    /*public AbrirItemController(Tabela leitor)
-    {
-        this.leitor = leitor;
-    } */
+{   
+    private Tabela leitor;
+    private TabelaObservador tabela_observador;
     
+    public AbrirItemController()
+    {
+        leitor = new Tabela();
+        tabela_observador = new TabelaListener();
+        leitor.adicionarTabelaObservador(tabela_observador);
+    }
+
+    public Tabela getTabela()
+    {
+        return leitor;
+    }
+
     public void executar(String texto)
     {
         if(texto == "Abrir")
@@ -32,7 +43,7 @@ public class AbrirItemController implements ItemController
                 Tabela.setArquivo(arquivo);
                 try
                 {
-                    Tabela.ler();
+                    leitor.lerArquivo();
                 }
                 catch(IOException nexc)
                 {

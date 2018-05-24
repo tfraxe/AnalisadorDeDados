@@ -5,28 +5,30 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import observer.TabelaObservavel;
+import observer.TabelaObservador;
 
-public class Tabela implements TabelaObservable
+public class Tabela implements TabelaObservavel
 {
-    private static File arquivo;
-    private static ArrayList<TabelaObserver> observers = new ArrayList<TabelaObserver>();
-    private static ArrayList<String[]> tabela = new ArrayList<String[]>();
+    private static File file;
+    private static ArrayList<String[]> tabela;
+    private ArrayList<TabelaObservador> observadores = new ArrayList<TabelaObservador>();
 
     public Tabela() { }
 
     public Tabela(File arquivo)
     {
-        Tabela.arquivo = arquivo;
+        file = arquivo;
     }
 
-    public File getArquivo()
+    public static File getArquivo()
     {
-        return arquivo;
+        return file;
     }
 
     public static void setArquivo(File arquivo)
     {
-        Tabela.arquivo = arquivo;
+        file = arquivo;
     }
 
     public static ArrayList<String[]> getTabela()
@@ -34,41 +36,41 @@ public class Tabela implements TabelaObservable
         return tabela;
     }
 
-    public void addObservers(TabelaObserver to)
+    public void lerArquivo() throws IOException
     {
-    
-        observers.add(to);
-    } 
-
-    public static void notificar()
-    {
-        if(observers != null)
-            for(TabelaObserver item : observers)
-                item.atualizarTabela(); 
-    } 
-
-    public static void ler() throws IOException
-    {
-        BufferedReader reader = new BufferedReader(new FileReader(arquivo));
-        String linha;
-        while((linha = reader.readLine()) != null)
-        {
-            String[] dados = linha.split(",");
-            tabela.add(dados);
-        }
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        tabela = new ArrayList<String[]>();
         
-        /* for(String[] item: tabela) 
+        String primeira_linha = reader.readLine();
+        if(primeira_linha != null)
         {
-            for(int i = 0; i < item.length; i++) 
+            String[] colunas = primeira_linha.split(",");
+            int numero_colunas = colunas.length;
+            String linha;
+            tabela.add(colunas);
+            while((linha = reader.readLine()) != null)
             {
-				String teste = item[i];
-				System.out.print(teste);
-				System.out.print(" ");
-			}
-			System.out.println();
-		} */
+                String[] dados = linha.split(",");
+                if(dados.length == numero_colunas)
+                    tabela.add(dados);
+            }
+            notificarTabelaObservadores();
+        }
+    }
 
-        Tabela.notificar();
+    public void adicionarTabelaObservador(TabelaObservador observador)
+    {
+        observadores.add(observador);
+    }
+    
+    public void removerTabelaObservador(TabelaObservador observador)
+    {
+        observadores.remove(observador);
+    }
 
+    public void notificarTabelaObservadores()
+    {
+        for(TabelaObservador observador : observadores)
+            observador.tabelaPronta();
     }
 }

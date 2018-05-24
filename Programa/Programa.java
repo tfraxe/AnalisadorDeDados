@@ -5,7 +5,7 @@ import gerenciamento.Gerenciador;
    Abner Lima - 398067
    Anderson Nobre - 352132
    Edealcia Regina - 372164
-   Francisco Tiago Fontenele - 393944
+   Tiago Fontenele - 393944
    Thiago Fraxe - 397796 */
    
 /* Todo o controle da logica de execucao do programa e feito atraves das classes do pacote gerenciamento. 

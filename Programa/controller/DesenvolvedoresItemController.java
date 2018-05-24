@@ -18,7 +18,7 @@ public class DesenvolvedoresItemController implements ItemController
             {
                 try
                 {
-                    URL url = new URL("https://github.com/");
+                    URL url = new URL("https://github.com/tfraxe/AnalisadorDeDados");
                     desktop.browse(url.toURI());
                 }
                 catch(Exception ex)

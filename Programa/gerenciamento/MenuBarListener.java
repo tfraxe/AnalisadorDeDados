@@ -1,6 +1,7 @@
 package gerenciamento;
 
-import view.util.MenuObservador;
+import observer.MenuObservador;
+import view.paginas.PaginaInicial;
 import javax.swing.JMenuItem;
 import controller.AbrirItemController;
 import controller.SalvarItemController;
@@ -9,8 +10,8 @@ import controller.ItemController;
 import controller.SuporteItemController;
 import controller.DesenvolvedoresItemController;
 import controller.SobreItemController;
-import model.LeitorArquivo;
 import java.util.LinkedList;
+import gerenciamento.Gerenciador;
 
 /* Essa classe e responsavel por observar a selecao do item da barra de menu
    Trabalha com a classe JanelaMenuListener utilizando o padrao de projeto observer. */
@@ -48,7 +49,3 @@ public class MenuBarListener implements MenuObservador
             i.executar(item.getText());
     }
 } 
-
-
-
-

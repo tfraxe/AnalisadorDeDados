@@ -1,7 +1,7 @@
 package view.janelas;
 
-import view.util.MenuObservador;
-import view.util.MenuObservavel;
+import observer.MenuObservador;
+import observer.MenuObservavel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.LinkedList;
