@@ -27,7 +27,7 @@ public class UnivariadaListener implements ActionListener
             for(BotaoRadio botao : botoes)
                 if(botao == fonte)
                 {
-                    calculo.calcularValor(1);
+                    calculo.calcularValor(0);
                 }
         }
     }

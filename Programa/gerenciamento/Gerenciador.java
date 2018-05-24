@@ -42,6 +42,7 @@ public class Gerenciador
             janela_navega.setIcone(icone);
             janela_navega.navegar(pagina_inicial);
             janela_navega.iniciar();
+
         }
         catch(Exception e)
         {

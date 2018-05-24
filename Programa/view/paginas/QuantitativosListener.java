@@ -21,9 +21,11 @@ public class QuantitativosListener implements ActionListener
         {
             BotaoRadio fonte = (BotaoRadio)event.getSource();
             for(BotaoRadio botao : botoes)
-                if(botao == fonte)
+                if(botao == fonte){
                 //Apenas um teste
+                    System.out.println("oi");
                     System.out.println(fonte.getText());
+                }
         }
     }
 }
