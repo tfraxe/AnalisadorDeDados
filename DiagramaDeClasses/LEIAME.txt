@@ -1,0 +1,5 @@
+Cada tabela tem uma cor. Cada cor representa uma função dentro do padrão MVC
+
+Cor azul - view
+Cor laranja - model
+Cor verde - controller
