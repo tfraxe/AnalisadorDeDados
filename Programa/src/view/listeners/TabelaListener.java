@@ -1,22 +1,21 @@
 package view.listeners;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.table.JTableHeader;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.TableColumnModelEvent;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.TableColumnModelListener;
 
 import model.Tabela;
 import view.paginas.PaginaAbstrata;
 import view.paginas.PaginaInicial;
 import observer.Observador;
 import observer.NotificacaoTabela;
-import gerenciamento.Gerenciador;
+import controller.gerenciamento.Gerenciador;
 
-public class TabelaListener extends Observador implements TableColumnModelListener
+public class TabelaListener extends Observador
 {
     private JTable tabela;
     private String[] nome_colunas;
@@ -58,25 +57,18 @@ public class TabelaListener extends Observador implements TableColumnModelListen
             for(int i = 1; i < lista.size(); i++) 
                 dados[i - 1] = lista.get(i);
             tabela = new JTable(dados, nome_colunas);
-            tabela.getColumnModel().addColumnModelListener(this);
+            JTableHeader header = tabela.getTableHeader();
+            header.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e)
+                {
+                    if(primeira_coluna == -1)
+                        primeira_coluna = header.columnAtPoint(e.getPoint());
+                    else if(segunda_coluna == -1)
+                        segunda_coluna = header.columnAtPoint(e.getPoint());
+                }
+            });
             JScrollPane panel = new JScrollPane(tabela);
             pagina.inserirCentro(panel);
         }
-    }
-
-    public void columnAdded(TableColumnModelEvent e) { }
-
-    public void columnMarginChanged(ChangeEvent e) { }
-
-    public void columnMoved(TableColumnModelEvent e) { }
-
-    public void columnRemoved(TableColumnModelEvent e) { }
-
-    public void columnSelectionChanged(ListSelectionEvent e)
-    {
-        if(primeira_coluna == -1)
-            primeira_coluna = tabela.getSelectedColumn();
-        else
-            segunda_coluna = tabela.getSelectedColumn();
     }
 }

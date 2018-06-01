@@ -8,7 +8,6 @@ import javax.swing.*;
 
 import view.listeners.*;
 import view.util.*;
-import gerenciamento.GerenciadorUnivariada;
 
 public class PaginaInicial extends DecoradorPagina implements ActionListener
 {
@@ -46,13 +45,15 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener
     private JButton botao_qualitativos;
     private BotaoRadio tabela_contingencia;
     private BotaoRadio tabela_frequencias_qualitativos;
-    private BotaoRadio grafico_barras;
-    private AnaliseUnivariadaListener univariada_listener;
-    private AnaliseMultivariadaListener multivariada_listener;
-    private GraficosQualitativosListener qualitativos_listener;
-    private GraficosQuantitativosListener quantitativos_listener;
+    private BotaoRadio grafico_barras_absoluto;
+    private BotaoRadio grafico_barras_relativo;
+    private UnivariadaListener univariada_listener;
+    private MultivariadaListener multivariada_listener;
+    private GraficoListener grafico_listener;
     private BotaoUnivariadaListener botao_univariada_listener;
     private BotaoMultivariadaListener botao_multivariada_listener;
+    private BotaoQuantitativosListener botao_quantitativos_listener;
+    private BotaoQualitativosListener botao_qualitativos_listener;
 
     public PaginaInicial(PaginaAbstrata pagina)
     {
@@ -70,14 +71,25 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener
         return botao_multivariada_listener;
     }
 
+    public BotaoQuantitativosListener getBotaoQuantitativosListener()
+    {
+        return botao_quantitativos_listener;
+    }
+
+    public BotaoQualitativosListener getBotaoQualitativosListener()
+    {
+        return botao_qualitativos_listener;
+    }
+
     private void construirElementos()
     {
-        univariada_listener = new AnaliseUnivariadaListener();
-        multivariada_listener = new AnaliseMultivariadaListener();
-        quantitativos_listener = new GraficosQuantitativosListener();
-        qualitativos_listener = new GraficosQualitativosListener();
+        univariada_listener = new UnivariadaListener();
+        multivariada_listener = new MultivariadaListener();
+        grafico_listener = new GraficoListener();
         botao_univariada_listener = new BotaoUnivariadaListener();
         botao_multivariada_listener = new BotaoMultivariadaListener();
+        botao_quantitativos_listener = new BotaoQuantitativosListener();
+        botao_qualitativos_listener = new BotaoQualitativosListener();
         construirColunas();
         construirBotoes();
         agruparBotoes();
@@ -116,16 +128,19 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener
 
         quantitativos = new Titulo("Dados Quantitativos");
         botao_quantitativos = new JButton("Calcular");
-        histograma = new BotaoRadio("Histograma", quantitativos_listener);
-        tabela_frequencias_quantitativos = new BotaoRadio("Tabela Frequencias", quantitativos_listener);
-        boxplot = new BotaoRadio("Boxplot", quantitativos_listener);
-        scatterplot = new BotaoRadio("Scatterplot", quantitativos_listener);
+        botao_quantitativos.addActionListener(botao_quantitativos_listener);
+        histograma = new BotaoRadio("Histograma", grafico_listener);
+        tabela_frequencias_quantitativos = new BotaoRadio("Tabela Quantitativos", grafico_listener);
+        boxplot = new BotaoRadio("Boxplot", grafico_listener);
+        scatterplot = new BotaoRadio("Scatterplot", grafico_listener);
 
         qualitativos = new Titulo("Dados Qualitativos");
         botao_qualitativos = new JButton("Calcular");
-        tabela_contingencia = new BotaoRadio("Tabela Contingencia", qualitativos_listener);
-        tabela_frequencias_qualitativos = new BotaoRadio("Tabela Frequencias", qualitativos_listener);
-        grafico_barras = new BotaoRadio("Grafico de barras", qualitativos_listener);
+        botao_qualitativos.addActionListener(botao_qualitativos_listener);
+        tabela_contingencia = new BotaoRadio("Tabela Contingencia", grafico_listener);
+        tabela_frequencias_qualitativos = new BotaoRadio("Tabela Qualitativos", grafico_listener);
+        grafico_barras_absoluto = new BotaoRadio("Grafico de barras absoluto", grafico_listener);
+        grafico_barras_relativo = new BotaoRadio("Grafico de barras relativo", grafico_listener);
     }
 
     private void agruparBotoes()
@@ -155,7 +170,8 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener
 
         grupo_qualitativos.add(tabela_contingencia);
         grupo_qualitativos.add(tabela_frequencias_qualitativos);
-        grupo_qualitativos.add(grafico_barras);
+        grupo_qualitativos.add(grafico_barras_absoluto);
+        grupo_qualitativos.add(grafico_barras_relativo);
     }
 
     public void carregar()
@@ -243,7 +259,8 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener
         coluna_operacoes.add(cabecalho_qualitativos);
         coluna_operacoes.add(tabela_contingencia);
         coluna_operacoes.add(tabela_frequencias_qualitativos);
-        coluna_operacoes.add(grafico_barras);
+        coluna_operacoes.add(grafico_barras_absoluto);
+        coluna_operacoes.add(grafico_barras_relativo);
         coluna_operacoes.revalidate();
         coluna_operacoes.repaint();
     }

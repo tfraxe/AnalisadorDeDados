@@ -13,7 +13,6 @@ public class JanelaMenu extends DecoradorJanela
     private JMenuBar barra_menu;
     private JMenu arquivo;
     private JMenuItem abrir_item;
-    private JMenuItem salvar_item;
     private JMenuItem fechar_item;
     private JMenu ajuda;
     private JMenuItem suporte_item;
@@ -44,13 +43,10 @@ public class JanelaMenu extends DecoradorJanela
         barra_menu = new JMenuBar();
         arquivo = new JMenu("Arquivo");
         abrir_item = new JMenuItem("Abrir"); 
-        salvar_item = new JMenuItem("Salvar");
         fechar_item = new JMenuItem("Fechar");
         abrir_item.addActionListener(listener);
-        salvar_item.addActionListener(listener);
         fechar_item.addActionListener(listener);
         arquivo.add(abrir_item);
-        arquivo.add(salvar_item);
         arquivo.add(fechar_item);
         ajuda = new JMenu("Ajuda");
         suporte_item = new JMenuItem("Suporte"); 

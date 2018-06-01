@@ -2,7 +2,7 @@ package controller;
 
 import view.paginas.PaginaInicial;
 import controller.ItemController;
-import gerenciamento.Gerenciador;
+import controller.gerenciamento.Gerenciador;
 
 public class FecharItem implements ItemController
 {

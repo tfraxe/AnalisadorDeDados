@@ -3,7 +3,7 @@ package controller;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import gerenciamento.Gerenciador;
+import controller.gerenciamento.Gerenciador;
 import controller.ItemController;
 import java.io.File;
 import java.io.IOException;

@@ -23,7 +23,8 @@ public class Janela extends JanelaAbstrata
 
     public void iniciar()
     {
-        super.frame.addWindowListener(this);
+        //super.frame.addWindowListener(this);
+        super.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.frame.pack();
         super.frame.setVisible(true);
     }

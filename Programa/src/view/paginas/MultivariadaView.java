@@ -2,7 +2,7 @@ package view.paginas;
 
 import javax.swing.JOptionPane;
 
-import observer.NotificacaoCalculoMultivariada;
+import observer.NotificacaoMultivariada;
 import observer.Observador;
 
 public class MultivariadaView extends Observador
@@ -10,9 +10,9 @@ public class MultivariadaView extends Observador
     public void update()
     {
         super.update();
-        if(super.notificacao instanceof NotificacaoCalculoMultivariada)
+        if(super.notificacao instanceof NotificacaoMultivariada)
         {
-            NotificacaoCalculoMultivariada n = (NotificacaoCalculoMultivariada)super.notificacao;
+            NotificacaoMultivariada n = (NotificacaoMultivariada)super.notificacao;
             JOptionPane.showMessageDialog(null, n.resultado);
         }  
     }

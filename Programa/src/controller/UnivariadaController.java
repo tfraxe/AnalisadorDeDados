@@ -1,7 +1,6 @@
 package controller;
 
 import model.univariada.CalculoUnivariada;
-import view.paginas.UnivariadaView;
 
 public class UnivariadaController
 {

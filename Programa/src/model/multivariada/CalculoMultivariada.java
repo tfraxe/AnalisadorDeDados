@@ -4,21 +4,21 @@ import javax.swing.JOptionPane;
 
 import model.multivariada.Multivariada;
 import model.ColunaIncompativelException;
-import observer.NotificacaoCalculoMultivariada;
+import observer.NotificacaoMultivariada;
 import observer.Observavel;
 
 public class CalculoMultivariada extends Observavel
 {
 	private Multivariada operacao;
 	private String texto;
-	private NotificacaoCalculoMultivariada notificacao;
+	private NotificacaoMultivariada notificacao;
 
 	public CalculoMultivariada(Multivariada operacao, String texto)
 	{
 		super();
 		this.operacao = operacao;
 		this.texto = texto;
-		this.notificacao = new NotificacaoCalculoMultivariada();
+		this.notificacao = new NotificacaoMultivariada();
 	}
 
 	public void calcularValor(int coluna1, int coluna2)
