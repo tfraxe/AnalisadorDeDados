@@ -1,7 +1,6 @@
 package view.paginas;
 
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+import javax.swing.JFrame;
 
 import observer.NotificacaoGrafico;
 import observer.Observador;
@@ -14,9 +13,8 @@ public class GraficosView extends Observador
         if(super.notificacao instanceof NotificacaoGrafico)
         {
             NotificacaoGrafico n = (NotificacaoGrafico)super.notificacao;
-            ApplicationFrame frame = n.resultado;
+            JFrame frame = n.resultado;
             frame.pack();
-			RefineryUtilities.centerFrameOnScreen(frame);
 			frame.setVisible(true);
         }  
     }

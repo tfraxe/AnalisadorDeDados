@@ -43,7 +43,10 @@ public class GerenciadorQualitativo extends Observador
                 model.adicionarObservador(view);
                 view.setObservavel(model);
                 graficos_controller.setModel(model);
-                graficos_controller.executar(n.coluna1);
+                if(grafico instanceof TabelaContingencia)
+                    graficos_controller.executar(n.coluna1, n.coluna2);
+                else
+                    graficos_controller.executar(n.coluna1);
             }
         }
     }

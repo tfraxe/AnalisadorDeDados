@@ -3,6 +3,7 @@ package controller.gerenciamento;
 import java.net.URL;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import java.io.File;
 
 import model.Tabela;
 import view.janelas.*;
@@ -34,7 +35,7 @@ public class Gerenciador
         try
         {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            icone = ClassLoader.getSystemResource("view/icones/pie-chart.png");
+            icone = this.getClass().getResource("/resources/pie-chart.png");
             criarPagina();
             criarJanela();
         }

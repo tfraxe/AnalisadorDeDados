@@ -67,7 +67,8 @@ public class TabelaListener extends Observador
                         segunda_coluna = header.columnAtPoint(e.getPoint());
                 }
             });
-            JScrollPane panel = new JScrollPane(tabela);
+            JScrollPane panel = new JScrollPane(tabela, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             pagina.inserirCentro(panel);
         }
     }

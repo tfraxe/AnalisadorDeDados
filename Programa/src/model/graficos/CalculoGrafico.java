@@ -1,6 +1,6 @@
 package model.graficos;
 
-import org.jfree.ui.ApplicationFrame;
+import javax.swing.JFrame;
 
 import javax.swing.JOptionPane;
 
@@ -25,7 +25,7 @@ public class CalculoGrafico extends Observavel
 	{
 		try
 		{
-			ApplicationFrame resultado = grafico.calcular(coluna);
+			JFrame resultado = grafico.calcular(coluna);
 			if(resultado != null)
 			{
 				this.notificacao.resultado = resultado;
@@ -43,7 +43,7 @@ public class CalculoGrafico extends Observavel
 	{
 		try
 		{
-			ApplicationFrame resultado = grafico.calcular(coluna1, coluna2);
+			JFrame resultado = grafico.calcular(coluna1, coluna2);
 			if(resultado != null)
 			{
 				this.notificacao.resultado = resultado;

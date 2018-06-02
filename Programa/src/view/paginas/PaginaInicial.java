@@ -5,12 +5,16 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
+import java.net.URL;
 
 import view.listeners.*;
 import view.util.*;
 
 public class PaginaInicial extends DecoradorPagina implements ActionListener
 {
+    private Toolkit toolkit;
+    private URL calculadora;
+    private URL grafico;
     private BotaoIcone botao_analises;
     private BotaoIcone botao_graficos;
     private Coluna coluna_icones;
@@ -83,6 +87,9 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener
 
     private void construirElementos()
     {
+        toolkit = Toolkit.getDefaultToolkit();
+        calculadora = this.getClass().getResource("/resources/calculator.png");
+        grafico = this.getClass().getResource("/resources/graph.png");
         univariada_listener = new UnivariadaListener();
         multivariada_listener = new MultivariadaListener();
         grafico_listener = new GraficoListener();
@@ -104,9 +111,8 @@ public class PaginaInicial extends DecoradorPagina implements ActionListener
 
     private void construirBotoes()
     {
-        botao_analises = new BotaoIcone(new ImageIcon("view/icones/calculator.png", null), this);
-        botao_graficos = new BotaoIcone(new ImageIcon("view/icones/graph.png", null), this);
-
+        botao_analises = new BotaoIcone(new ImageIcon(toolkit.createImage(calculadora)), this);
+        botao_graficos = new BotaoIcone(new ImageIcon(toolkit.createImage(grafico)), this);
         univariada = new Titulo("Analise Univariada");
         botao_univariada = new JButton("Calcular");
         botao_univariada.addActionListener(botao_univariada_listener);

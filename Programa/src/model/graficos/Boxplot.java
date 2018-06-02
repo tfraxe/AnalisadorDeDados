@@ -1,6 +1,6 @@
 package model.graficos;
 
-import org.jfree.ui.ApplicationFrame;
+import javax.swing.JFrame;
 
 import model.ColunaIncompativelException;
 import model.graficos.Grafico;
@@ -9,7 +9,7 @@ import model.Tabela;
 
 public class Boxplot implements Grafico
 {
-    public ApplicationFrame calcular(int coluna) throws ColunaIncompativelException
+    public JFrame calcular(int coluna) throws ColunaIncompativelException
     {
         try
         {
@@ -23,7 +23,7 @@ public class Boxplot implements Grafico
         }
     }
 
-    public ApplicationFrame calcular(int coluna1, int coluna2) throws ColunaIncompativelException
+    public JFrame calcular(int coluna1, int coluna2) throws ColunaIncompativelException
     {
         return null;
     }

@@ -11,6 +11,7 @@ public class GraficoListener implements ActionListener
     private static String grafico_quantitativo;
     private static String grafico_qualitativo;
     private boolean primeira_vez;
+    private boolean primeira_vez_2;
     protected String mensagem;
     private HashSet<String> quantitativos;
     private HashSet<String> qualitativos;
@@ -19,6 +20,7 @@ public class GraficoListener implements ActionListener
     {
         this.mensagem = "Escolha uma coluna";
         primeira_vez = true;
+        primeira_vez_2 = true;
         grafico_quantitativo = null;
         grafico_qualitativo = null;
         quantitativos = new HashSet<String>();
@@ -53,12 +55,19 @@ public class GraficoListener implements ActionListener
                 grafico_quantitativo = grafico_selecionado;
             if(qualitativos.contains(grafico_selecionado))
                 grafico_qualitativo = grafico_selecionado;
-            if(primeira_vez)
+            if(primeira_vez || primeira_vez_2)
             {
-                if(grafico_selecionado.equals("Scatterplot"))
+                if((grafico_selecionado.equals("Scatterplot") || grafico_selecionado.equals("Tabela Contingencia")) && primeira_vez_2)
+                {
                     mensagem = "Escolha duas colunas";
-                JOptionPane.showMessageDialog(null, mensagem);
-                primeira_vez = false;
+                    primeira_vez_2 = false;
+                    JOptionPane.showMessageDialog(null, mensagem);
+                }
+                else if(primeira_vez_2)
+                {
+                    JOptionPane.showMessageDialog(null, mensagem);
+                    primeira_vez = false;
+                }
             }
         }
     }

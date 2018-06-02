@@ -1,0 +1,55 @@
+<project name="analisador" basedir="." default="main">
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="classes.dir" value="${build.dir}/bin"/>
+    <property name="jar.dir" value="${build.dir}/jar"/>
+    <property name="resources.dir" value="${src.dir}/resources"/>
+    <property name="main-class" value="Programa"/>
+    <property name="one-jar.dist.dir" value="/mnt/0036491536490CDA/Área de Trabalho/one-jar"/>
+
+    <import file="${one-jar.dist.dir}/one-jar-ant-task.xml" optional="true"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${classes.dir}/resources"/>
+        <copy todir="${classes.dir}/resources">
+            <fileset dir="${resources.dir}"/>
+        </copy>
+        <mkdir dir="${jar.dir}"/>
+    </target>
+
+    <target name="compile">
+        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <target name="jar">
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+                <attribute name="Class-Path" value="${jar.classpath}"/>
+                <attribute name="Created-By" value="Equipe 5"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="onejar">
+        <one-jar destfile="${ant.project.name}.jar">
+    	    <main jar="${jar.dir}/${ant.project.name}.jar"/>
+    	    <lib>
+    		    <fileset dir="${lib.dir}"/>
+    	    </lib>
+        </one-jar>
+    </target>
+
+    <target name="main" depends="clean, compile, jar, onejar"/>
+</project>
