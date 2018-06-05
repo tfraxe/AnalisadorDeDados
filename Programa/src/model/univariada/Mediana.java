@@ -17,7 +17,12 @@ public class Mediana implements Univariada
 		{
 			ArrayList<String> valores = new ArrayList<String>();
 			for(int i = 1; i < tabela.size(); i++)
-				valores.add(tabela.get(i)[coluna]);
+			{
+				String texto = tabela.get(i)[coluna];
+				if(!texto.equals(""))
+					valores.add(texto);
+			}
+				
 			if(valores.size() > 0)
 			{
 				try

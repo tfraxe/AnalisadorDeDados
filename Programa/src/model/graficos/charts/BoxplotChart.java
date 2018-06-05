@@ -64,7 +64,7 @@ public class BoxplotChart extends Chart
 		        for(int i = 1; i < tamanho_tabela; i++)
 		        {
 		            String valor = tabela.get(i)[coluna];
-		            if(!valor.equals("NaN")) 
+		            if(!valor.equals("NaN") && !valor.equals("")) 
 		                listaValores.add(Double.parseDouble(valor));
 		            else
 		                n_NaN++;

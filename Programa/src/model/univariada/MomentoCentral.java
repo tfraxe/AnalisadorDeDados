@@ -41,7 +41,7 @@ public class MomentoCentral
 				for(int i = 1; i < tamanho_tabela; i++)
 				{
 					String valor = tabela.get(i)[coluna];
-					if(!valor.equals("NaN"))
+					if(!valor.equals("NaN") && !valor.equals(""))
 						numeros.add(Double.parseDouble(valor));
 					else
 						n_NaN++;

@@ -22,8 +22,11 @@ public class Moda implements Univariada
 			for(int i = 1; i < tabela.size(); i++)
 			{
 				String texto = tabela.get(i)[coluna];
-				conjunto.add(texto);
-				valores.add(texto);
+				if(!texto.equals(""))
+				{
+					conjunto.add(texto);
+					valores.add(texto);
+				}
 			}
 			for(String texto : conjunto)
 			{

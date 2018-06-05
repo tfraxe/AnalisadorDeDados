@@ -29,7 +29,7 @@ public class Covariancia implements Multivariada
 				{
 					String valor1 = tabela.get(i)[coluna1];
 					String valor2 = tabela.get(i)[coluna2];
-					if(!valor1.equals("NaN") && !valor2.equals("NaN"))
+					if(!valor1.equals("NaN") && !valor2.equals("NaN") && !valor1.equals("") && !valor2.equals(""))
 					{
 						numeros1.add(Double.parseDouble(valor1));
 						numeros2.add(Double.parseDouble(valor2));

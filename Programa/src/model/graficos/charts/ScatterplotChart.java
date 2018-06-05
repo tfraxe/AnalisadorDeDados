@@ -76,7 +76,7 @@ public class ScatterplotChart extends Chart
                     String valor1 = tabela.get(i)[coluna1];
                     String valor2 = tabela.get(i)[coluna2];
 
-                    if(!valor1.equals("NaN") && !valor2.equals("NaN")) 
+                    if(!valor1.equals("NaN") && !valor2.equals("NaN") && !valor1.equals("") && !valor2.equals("")) 
                     {
                         valor1Double = Double.parseDouble(valor1);
                         valor2Double = Double.parseDouble(valor2);
